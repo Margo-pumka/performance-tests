@@ -38,8 +38,6 @@ make_purchase_operation_response.raise_for_status()
 make_purchase_operation_response_data = make_purchase_operation_response.json()
 operation_id = make_purchase_operation_response_data["operation"]["id"]
 
-
-
 get_receipt_response = httpx.get(f"http://localhost:8003/api/v1/operations/operation-receipt/{operation_id}")
 
 get_receipt_response.raise_for_status()
