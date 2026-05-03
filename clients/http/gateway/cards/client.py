@@ -7,6 +7,9 @@ from clients.http.http_client import HttpClient
 
 
 class CardDict:
+    """
+    Описание структуры карты.
+    """
     id: str
     pin: str
     cvv: str
