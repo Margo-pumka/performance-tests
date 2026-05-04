@@ -6,7 +6,7 @@ from clients.http.gateway.client import build_gateway_http_client
 from clients.http.http_client import HttpClient
 
 
-class DocumentDict:
+class DocumentDict(TypedDict):
     """Структура данных документа."""
     document: str
     url: str
