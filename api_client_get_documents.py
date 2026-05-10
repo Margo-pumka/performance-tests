@@ -12,7 +12,7 @@ print('Create user response:', create_user_response)
 
 # Открываем кредитовый счет
 open_credit_card_account_response = accounts_gateway_client.open_credit_card_account(
-    user_id=create_user_response['user']['id']
+    user_id=create_user_response.user.id
 )
 print('Open credit card account response:', open_credit_card_account_response)
 
