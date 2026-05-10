@@ -1,4 +1,5 @@
 from enum import StrEnum
+from tools.faker import fake
 
 from pydantic import BaseModel, Field, ConfigDict, HttpUrl
 
@@ -86,8 +87,8 @@ class MakeFeeOperationRequestSchema(BaseModel):
     """Структура данных для создания операции комиссии."""
     model_config = ConfigDict(populate_by_name=True)
 
-    status: OperationStatus
-    amount: float
+    status: OperationStatus = Field(default_factory=lambda: fake.enum(OperationStatus))
+    amount: float = Field(default_factory=fake.amount)
     card_id: str = Field(alias="cardId")
     account_id: str = Field(alias="accountId")
 
@@ -101,8 +102,8 @@ class MakeTopUpOperationRequestSchema(BaseModel):
     """Структура данных для создания операции пополнения."""
     model_config = ConfigDict(populate_by_name=True)
 
-    status: OperationStatus
-    amount: float
+    status: OperationStatus = Field(default_factory=lambda: fake.enum(OperationStatus))
+    amount: float = Field(default_factory=fake.amount)
     card_id: str = Field(alias="cardId")
     account_id: str = Field(alias="accountId")
 
@@ -116,8 +117,8 @@ class MakeCashbackOperationRequestSchema(BaseModel):
     """Структура данных для создания операции кэшбэка."""
     model_config = ConfigDict(populate_by_name=True)
 
-    status: OperationStatus
-    amount: float
+    status: OperationStatus = Field(default_factory=lambda: fake.enum(OperationStatus))
+    amount: float = Field(default_factory=fake.amount)
     card_id: str = Field(alias="cardId")
     account_id: str = Field(alias="accountId")
 
@@ -131,8 +132,8 @@ class MakeTransferOperationRequestSchema(BaseModel):
     """Структура данных для создания операции перевода."""
     model_config = ConfigDict(populate_by_name=True)
 
-    status: OperationStatus
-    amount: float
+    status: OperationStatus = Field(default_factory=lambda: fake.enum(OperationStatus))
+    amount: float = Field(default_factory=fake.amount)
     card_id: str = Field(alias="cardId")
     account_id: str = Field(alias="accountId")
 
@@ -146,11 +147,11 @@ class MakePurchaseOperationRequestSchema(BaseModel):
     """Структура данных для создания операции покупки."""
     model_config = ConfigDict(populate_by_name=True)
 
-    status: OperationStatus
-    amount: float
+    status: OperationStatus = Field(default_factory=lambda: fake.enum(OperationStatus))
+    amount: float = Field(default_factory=fake.amount)
     card_id: str = Field(alias="cardId")
     account_id: str = Field(alias="accountId")
-    category: str
+    category: str = Field(default_factory=fake.category)
 
 
 class MakePurchaseOperationResponseSchema(BaseModel):
@@ -161,8 +162,8 @@ class MakeBillPaymentOperationRequestSchema(BaseModel):
     """Структура данных для создания операции оплаты по счету."""
     model_config = ConfigDict(populate_by_name=True)
 
-    status: OperationStatus
-    amount: float
+    status: OperationStatus = Field(default_factory=lambda: fake.enum(OperationStatus))
+    amount: float = Field(default_factory=fake.amount)
     card_id: str = Field(alias="cardId")
     account_id: str = Field(alias="accountId")
 
@@ -176,8 +177,8 @@ class MakeCashWithdrawalOperationRequestSchema(BaseModel):
     """Структура данных для создания операции снятия наличных денег."""
     model_config = ConfigDict(populate_by_name=True)
 
-    status: OperationStatus
-    amount: float
+    status: OperationStatus = Field(default_factory=lambda: fake.enum(OperationStatus))
+    amount: float = Field(default_factory=fake.amount)
     card_id: str = Field(alias="cardId")
     account_id: str = Field(alias="accountId")
 
