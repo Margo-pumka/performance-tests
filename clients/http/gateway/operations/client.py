@@ -138,7 +138,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на получение списка операций для определенного счета.
 
         :param query: Словарь с accountId.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.get("/api/v1/operations", params=QueryParams(**query))
 
@@ -147,7 +147,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на получение чека по операции.
 
         :param operation_id: Идентификатор операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.get(f"/api/v1/operations/operation-receipt/{operation_id}")
 
@@ -156,7 +156,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на получение информации об операции.
 
         :param operation_id: Идентификатор операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.get(f"/api/v1/operations/{operation_id}")
 
@@ -165,7 +165,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на получение статистики по операциям для определенного счета.
 
         :param query: Словарь с accountId.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.get("/api/v1/operations/operations-summary", params=QueryParams(**query))
 
@@ -174,7 +174,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на создание операции комиссии.
 
         :param request: Словарь с данными об операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.post("/api/v1/operations/make-fee-operation", json=request)
 
@@ -183,7 +183,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на создание операции пополнения.
 
         :param request: Словарь с данными об операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.post("/api/v1/operations/make-top-up-operation", json=request)
 
@@ -192,7 +192,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на создание операции кэшбэка.
 
         :param request: Словарь с данными об операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.post("/api/v1/operations/make-cashback-operation", json=request)
 
@@ -201,7 +201,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на создание операции перевода.
 
         :param request: Словарь с данными об операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.post("/api/v1/operations/make-transfer-operation", json=request)
 
@@ -210,7 +210,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на создание операции покупки.
 
         :param request: Словарь с данными об операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.post("/api/v1/operations/make-purchase-operation", json=request)
 
@@ -219,7 +219,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на создание операции оплаты по счету.
 
         :param request: Словарь с данными об операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.post("/api/v1/operations/make-bill-payment-operation", json=request)
 
@@ -228,7 +228,7 @@ class OperationsGatewayHTTPClient(HttpClient):
         Выполняет запрос на создание операции снятия наличных денег.
 
         :param request: Словарь с данными об операции.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.post("/api/v1/operations/make-cash-withdrawal-operation", json=request)
 

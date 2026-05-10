@@ -1,45 +1,10 @@
 import time
-from typing import TypedDict
 
 from httpx import Response
 
-from clients.http.gateway.client import build_gateway_http_client
 from clients.http.http_client import HttpClient
-
-
-class UserDict(TypedDict):
-    """
-    Описание структуры пользователя.
-    """
-    id: str
-    email: str
-    lastName: str
-    firstName: str
-    middleName: str
-    phoneNumber: str
-
-
-class GetUserResponseDict(TypedDict):
-    """
-    Описание структуры ответа получения пользователя.
-    """
-    user: UserDict
-
-
-class CreateUserRequestDict(TypedDict):
-    """Структура данных для создания нового пользователя."""
-    email: str
-    lastName: str
-    firstName: str
-    middleName: str
-    phoneNumber: str
-
-
-class CreateUserResponseDict(TypedDict):
-    """
-    Описание структуры ответа создания пользователя.
-    """
-    user: UserDict
+from clients.http.gateway.client import build_gateway_http_client
+from clients.http.gateway.users.schema import CreateUserRequestSchema, GetUserResponseSchema, CreateUserResponseSchema
 
 
 class UsersGatewayHttpClient(HttpClient):
@@ -50,33 +15,34 @@ class UsersGatewayHttpClient(HttpClient):
         Получить данные пользователя по его user_id.
 
         :param user_id: Идентификатор пользователя.
-        :return: Ответ от сервиса (объект http.Response)
+        :return: Ответ от сервиса (объект httpx.Response)
         """
-        return self.client.get(f"/api/v1/users/{user_id}")
+        return self.get(f"/api/v1/users/{user_id}")
 
-    def create_user_api(self, request: CreateUserRequestDict) -> Response:
+    def create_user_api(self, request: CreateUserRequestSchema) -> Response:
         """
         Создание нового пользователя.
 
-        :param request: Словарь с данными нового пользователя.
-        :return: Ответ от сервиса (объект http.Response)
+        :param request: Pydantic-модель с данными нового пользователя.
+        :return: Ответ от сервиса (объект httpx.Response)
         """
-        return self.client.post("/api/v1/users", json=request)
+        return self.post("/api/v1/users", json=request.model_dump(by_alias=True))
 
-    def get_user(self,  user_id: str) -> GetUserResponseDict:
+    def get_user(self, user_id: str) -> GetUserResponseSchema:
         response = self.get_user_api(user_id)
-        return response.json()
+        return GetUserResponseSchema.model_validate_json(response.text)
 
-    def create_user(self) -> CreateUserResponseDict:
-        request = CreateUserRequestDict(
+    def create_user(self) -> CreateUserResponseSchema:
+        request = CreateUserRequestSchema(
             email=f"user{time.time()}@example.com",
-            firstName="string",
-            lastName="string",
-            middleName="string",
-            phoneNumber="string"
+            first_name="string",
+            last_name="string",
+            middle_name="string",
+            phone_number="string"
         )
         response = self.create_user_api(request)
-        return response.json()
+        return CreateUserResponseSchema.model_validate_json(response.text)
+
 
 def build_users_gateway_http_client() -> UsersGatewayHttpClient:
     """
