@@ -1,5 +1,3 @@
-import time
-
 from httpx import Response
 
 from clients.http.http_client import HttpClient
@@ -33,13 +31,7 @@ class UsersGatewayHttpClient(HttpClient):
         return GetUserResponseSchema.model_validate_json(response.text)
 
     def create_user(self) -> CreateUserResponseSchema:
-        request = CreateUserRequestSchema(
-            email=f"user{time.time()}@example.com",
-            first_name="string",
-            last_name="string",
-            middle_name="string",
-            phone_number="string"
-        )
+        request = CreateUserRequestSchema()
         response = self.create_user_api(request)
         return CreateUserResponseSchema.model_validate_json(response.text)
 
