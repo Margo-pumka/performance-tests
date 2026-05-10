@@ -16,7 +16,7 @@ class AccountsGatewayHTTPClient(HttpClient):
         """
         Выполняет GET-запрос на получение списка счетов пользователя.
 
-        :param query: Словарь с параметрами запроса, например: {'userId': '123'}.
+        :param query: Pydantic-модель с параметрами запроса, например: {'userId': '123'}.
         :return: Объект httpx.Response с данными о счетах.
         """
         return self.get("/api/v1/accounts", params=QueryParams(**query.model_dump(by_alias=True)))
@@ -25,7 +25,7 @@ class AccountsGatewayHTTPClient(HttpClient):
         """
         Выполняет POST-запрос для открытия депозитного счёта.
 
-        :param request: Словарь с userId.
+        :param request: Pydantic-модель с userId.
         :return: Объект httpx.Response с результатом операции.
         """
         return self.post("/api/v1/accounts/open-deposit-account", json=request.model_dump(by_alias=True))
@@ -34,7 +34,7 @@ class AccountsGatewayHTTPClient(HttpClient):
         """
         Выполняет POST-запрос для открытия сберегательного счёта.
 
-        :param request: Словарь с userId.
+        :param request: Pydantic-модель с userId.
         :return: Объект httpx.Response.
         """
         return self.post("/api/v1/accounts/open-savings-account", json=request.model_dump(by_alias=True))
@@ -43,7 +43,7 @@ class AccountsGatewayHTTPClient(HttpClient):
         """
         Выполняет POST-запрос для открытия дебетовой карты.
 
-        :param request: Словарь с userId.
+        :param request: Pydantic-модель с userId.
         :return: Объект httpx.Response.
         """
         return self.post("/api/v1/accounts/open-debit-card-account", json=request.model_dump(by_alias=True))
@@ -52,7 +52,7 @@ class AccountsGatewayHTTPClient(HttpClient):
         """
         Выполняет POST-запрос для открытия кредитной карты.
 
-        :param request: Словарь с userId.
+        :param request: Pydantic-модель с userId.
         :return: Объект httpx.Response.
         """
         return self.post("/api/v1/accounts/open-credit-card-account", json=request.model_dump(by_alias=True))

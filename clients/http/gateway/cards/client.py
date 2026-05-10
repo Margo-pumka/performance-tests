@@ -22,7 +22,7 @@ class CardsGatewayHTTPClient(HttpClient):
         """
         Создание физической карты.
 
-        :param request: Словарь с идентификаторами пользователя.
+        :param request: Pydantic-модель с идентификаторами пользователя.
         :return: Ответ от сервиса (объект httpx.Response)
         """
         return self.post("/api/v1/cards/issue-physical-card", json=request.model_dump(by_alias=True))
