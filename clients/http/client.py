@@ -3,7 +3,7 @@ from typing import Any
 from httpx import Client, Response, URL, QueryParams
 
 
-class HttpClient:
+class HTTPClient:
     """
     Базовый HTTP API клиент, принимающий объект httpx.Client.
 

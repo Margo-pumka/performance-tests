@@ -5,11 +5,11 @@ from clients.http.gateway.accounts.schema import GetAccountsQuerySchema, OpenCre
     OpenSavingsAccountResponseSchema, OpenDepositAccountRequestSchema, OpenDepositAccountResponseSchema, \
     GetAccountsResponseSchema, OpenSavingsAccountRequestSchema
 from clients.http.gateway.client import build_gateway_http_client
-from clients.http.http_client import HttpClient
+from clients.http.client import HTTPClient
 
 
 
-class AccountsGatewayHTTPClient(HttpClient):
+class AccountsGatewayHTTPClient(HTTPClient):
     """Клиент для взаимодействия с /api/v1/accounts сервиса http-gateway"""
 
     def get_accounts_api(self, query: GetAccountsQuerySchema) -> Response:

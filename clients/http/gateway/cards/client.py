@@ -3,10 +3,10 @@ from httpx import Response
 from clients.http.gateway.cards.schema import IssueVirtualCardRequestSchema, IssueVirtualCardResponseSchema, \
     IssuePhysicalCardRequestSchema, IssuePhysicalCardResponseSchema
 from clients.http.gateway.client import build_gateway_http_client
-from clients.http.http_client import HttpClient
+from clients.http.client import HTTPClient
 
 
-class CardsGatewayHTTPClient(HttpClient):
+class CardsGatewayHTTPClient(HTTPClient):
     """Клиент для взаимодействия с /api/v1/cards сервиса http-gateway"""
 
     def issue_virtual_card_api(self, request: IssueVirtualCardRequestSchema) -> Response:

@@ -1,11 +1,11 @@
 from httpx import Response
 
-from clients.http.http_client import HttpClient
+from clients.http.client import HTTPClient
 from clients.http.gateway.client import build_gateway_http_client
 from clients.http.gateway.users.schema import CreateUserRequestSchema, GetUserResponseSchema, CreateUserResponseSchema
 
 
-class UsersGatewayHttpClient(HttpClient):
+class UsersGatewayHTTPClient(HTTPClient):
     """Клиент для взаимодействия с /api/v1/users сервиса http-gateway"""
 
     def get_user_api(self, user_id: str) -> Response:
@@ -36,10 +36,10 @@ class UsersGatewayHttpClient(HttpClient):
         return CreateUserResponseSchema.model_validate_json(response.text)
 
 
-def build_users_gateway_http_client() -> UsersGatewayHttpClient:
+def build_users_gateway_http_client() -> UsersGatewayHTTPClient:
     """
     Функция создаёт экземпляр UsersGatewayHTTPClient с уже настроенным HTTP-клиентом.
 
     :return: Готовый к использованию UsersGatewayHTTPClient.
     """
-    return UsersGatewayHttpClient(client=build_gateway_http_client())
+    return UsersGatewayHTTPClient(client=build_gateway_http_client())

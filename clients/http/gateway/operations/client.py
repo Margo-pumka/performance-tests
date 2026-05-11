@@ -23,10 +23,10 @@ from clients.http.gateway.operations.schema import (
     MakeBillPaymentOperationResponseSchema,
     MakeCashWithdrawalOperationResponseSchema
 )
-from clients.http.http_client import HttpClient
+from clients.http.client import HTTPClient
 
 
-class OperationsGatewayHTTPClient(HttpClient):
+class OperationsGatewayHTTPClient(HTTPClient):
     """Клиент для взаимодействия с /api/v1/operations сервиса http-gateway"""
 
     def get_operations_api(self, query: GetOperationsQuerySchema) -> Response:

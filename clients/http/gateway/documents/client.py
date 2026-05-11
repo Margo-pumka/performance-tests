@@ -2,10 +2,10 @@ from httpx import Response
 
 from clients.http.gateway.client import build_gateway_http_client
 from clients.http.gateway.documents.schema import GetTariffDocumentResponseSchema, GetContractDocumentResponseSchema
-from clients.http.http_client import HttpClient
+from clients.http.client import HTTPClient
 
 
-class DocumentsGatewayHTTPClient(HttpClient):
+class DocumentsGatewayHTTPClient(HTTPClient):
     """
     Клиент для взаимодействия с /api/v1/documents сервиса http-gateway.
     """
