@@ -4,7 +4,7 @@ from clients.grpc.client import GRPCClient
 from clients.grpc.gateway.client import build_gateway_grpc_client
 from contracts.services.gateway.users.rpc_create_user_pb2 import CreateUserRequest, CreateUserResponse
 from contracts.services.gateway.users.rpc_get_user_pb2 import GetUserRequest, GetUserResponse
-from contracts.services.users.users_service_pb2_grpc import UsersServiceStub
+from contracts.services.gateway.users.users_gateway_service_pb2_grpc import UsersGatewayServiceStub
 from tools.faker import fake
 
 
@@ -20,7 +20,7 @@ class UsersGatewayGRPCClient(GRPCClient):
         :param channel: gRPC-канал для подключения к UsersGatewayService.
         """
         super().__init__(channel)
-        self.stub = UsersServiceStub(self.channel)
+        self.stub = UsersGatewayServiceStub(self.channel)
 
     def get_user_api(self, request: GetUserRequest) -> GetUserResponse:
         """
@@ -66,7 +66,7 @@ class UsersGatewayGRPCClient(GRPCClient):
         return self.create_user_api(request)
 
 
-def build_users_gateway_http_client() -> UsersGatewayGRPCClient:
+def build_users_gateway_grpc_client() -> UsersGatewayGRPCClient:
     """
     Фабрика для создания экземпляра UsersGatewayGRPCClient.
 
