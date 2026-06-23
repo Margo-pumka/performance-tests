@@ -23,7 +23,7 @@ from clients.http.gateway.operations.schema import (
     MakeBillPaymentOperationResponseSchema,
     MakeCashWithdrawalOperationResponseSchema
 )
-from clients.http.client import HTTPClient
+from clients.http.client import HTTPClient, HTTPClientExtensions
 
 
 class OperationsGatewayHTTPClient(HTTPClient):
@@ -36,7 +36,11 @@ class OperationsGatewayHTTPClient(HTTPClient):
         :param query: Pydantic-модель с accountId.
         :return: Ответ от сервиса (объект httpx.Response)
         """
-        return self.get("/api/v1/operations", params=QueryParams(**query.model_dump(by_alias=True)))
+        return self.get(
+            "/api/v1/operations",
+            params=QueryParams(**query.model_dump(by_alias=True)),
+            extensions=HTTPClientExtensions(route="/api/v1/operations")
+        )
 
     def get_operation_receipt_api(self, operation_id: str) -> Response:
         """
@@ -45,7 +49,10 @@ class OperationsGatewayHTTPClient(HTTPClient):
         :param operation_id: Идентификатор операции.
         :return: Ответ от сервиса (объект httpx.Response)
         """
-        return self.get(f"/api/v1/operations/operation-receipt/{operation_id}")
+        return self.get(
+            f"/api/v1/operations/operation-receipt/{operation_id}",
+            extensions=HTTPClientExtensions(route="/api/v1/operations/operation-receipt/{operation_id}")
+        )
 
     def get_operation_api(self, operation_id: str) -> Response:
         """
@@ -54,7 +61,10 @@ class OperationsGatewayHTTPClient(HTTPClient):
         :param operation_id: Идентификатор операции.
         :return: Ответ от сервиса (объект httpx.Response)
         """
-        return self.get(f"/api/v1/operations/{operation_id}")
+        return self.get(
+            f"/api/v1/operations/{operation_id}",
+            extensions=HTTPClientExtensions(route="/api/v1/operations/{operation_id}")
+        )
 
     def get_operations_summary_api(self, query: GetOperationsSummaryQuerySchema) -> Response:
         """
@@ -63,7 +73,11 @@ class OperationsGatewayHTTPClient(HTTPClient):
         :param query: Pydantic-модель с accountId.
         :return: Ответ от сервиса (объект httpx.Response)
         """
-        return self.get("/api/v1/operations/operations-summary", params=QueryParams(**query.model_dump(by_alias=True)))
+        return self.get(
+            "/api/v1/operations/operations-summary",
+            params=QueryParams(**query.model_dump(by_alias=True)),
+            extensions=HTTPClientExtensions(route="/api/v1/operations/operations-summary")
+        )
 
     def make_fee_operation_api(self, request: MakeFeeOperationRequestSchema) -> Response:
         """
