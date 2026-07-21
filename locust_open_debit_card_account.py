@@ -15,9 +15,9 @@ class OpenDebitCardAccountScenarioUser(User):
 
     def on_start(self) -> None:
         self.users_gateway_client = build_users_gateway_locust_http_client(self.environment)
+        self.accounts_gateway_client = build_accounts_gateway_locust_http_client(self.environment)
         self.create_user_response = self.users_gateway_client.create_user()
 
     @task
     def open_debit_card_account(self):
-        self.accounts_gateway_client = build_accounts_gateway_locust_http_client(self.environment)
         self.accounts_gateway_client.open_debit_card_account(self.create_user_response.user.id)
