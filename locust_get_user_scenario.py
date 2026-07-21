@@ -1,27 +1,22 @@
-from locust import HttpUser, task, between
+from locust import task, between, User
 
-from tools.faker import fake
+from clients.http.gateway.users.client import build_users_gateway_locust_http_client, UsersGatewayHTTPClient
+from clients.http.gateway.users.schema import CreateUserResponseSchema
 
 
-class GetUserScenarioUser(HttpUser):
+class GetUserScenarioUser(User):
+    #host = "localhost"
     wait_time = between(1, 3)
-    user_data: dict
+
+    users_gateway_client: UsersGatewayHTTPClient
+    create_user_response: CreateUserResponseSchema
 
     def on_start(self) -> None:
-        request = {
-            'email': fake.email(),
-            'first_name':  fake.first_name(),
-            'last_name': fake.last_name(),
-            'middle_name': fake.middle_name(),
-            'phone_number': fake.phone_number(),
-        }
-        response = self.client.post('/api/v1/users', json=request)
-        self.user_data = response.json()
+        self.users_gateway_client = build_users_gateway_locust_http_client(environment=self.environment)
+
+        self.create_user_response = self.users_gateway_client.create_user()
 
 
     @task
     def get_user(self):
-        self.client.get(
-            f'/api/v1/users/{self.user_data['user']['id']}',
-            name='/api/v1/users/{user_id}'
-        )
+        self.users_gateway_client.get_user(self.create_user_response.user.id)
