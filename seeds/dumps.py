@@ -3,7 +3,7 @@ import os
 from seeds.schema.result import SeedsResult
 
 
-def save_seeds_result(result: SeedsResult, scenario: str):
+def save_seeds_result(result: SeedsResult, scenario: str) -> None:
     """
     Сохраняет результат сидинга (SeedsResult) в JSON-файл.
 
@@ -18,7 +18,7 @@ def save_seeds_result(result: SeedsResult, scenario: str):
         file.write(result.model_dump_json())
 
 
-def load_seeds_result(scenario: str):
+def load_seeds_result(scenario: str) -> SeedsResult:
     """
     Загружает результат сидинга из JSON-файла.
 
@@ -26,4 +26,4 @@ def load_seeds_result(scenario: str):
     :return: Объект SeedsResult, восстановленный из файла.
     """
     with open(f'./dumps/{scenario}_seeds.json', 'r', encoding="utf-8") as file:
-        SeedsResult.model_validate_json(file.read())
+        return SeedsResult.model_validate_json(file.read())
