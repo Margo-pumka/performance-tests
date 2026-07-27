@@ -7,6 +7,7 @@ class ExistingUserMakePurchaseOperationSeedsScenario(SeedsScenario):
     Сценарий сидинга для существующего пользователя, который выполняет операцию покупки.
     Создаёт 300 пользователей, открывает кредитный счёт и выдаёт карты.
     """
+
     @property
     def plan(self) -> SeedsPlan:
         """
@@ -31,7 +32,7 @@ class ExistingUserMakePurchaseOperationSeedsScenario(SeedsScenario):
         """
         return 'existing_user_make_purchase_operation'
 
+
 if __name__ == '__main__':
     seeds_scenario = ExistingUserMakePurchaseOperationSeedsScenario()
     seeds_scenario.build()
-    result = seeds_scenario.load()
