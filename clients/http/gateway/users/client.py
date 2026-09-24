@@ -19,7 +19,7 @@ class UsersGatewayHTTPClient(HTTPClient):
         """
         return self.get(
             f"{ApiRoutes.USERS}/{user_id}",
-            extensions=HTTPClientExtensions(route="{{ApiRoutes.USERS}}/{user_id}")
+            extensions=HTTPClientExtensions(route=f"{ApiRoutes.USERS}/{{user_id}}")
         )
 
     def create_user_api(self, request: CreateUserRequestSchema) -> Response:
