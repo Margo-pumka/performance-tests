@@ -93,6 +93,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: reports
+          path: ./reports
 
       # 11. Деплой HTML-отчёта в GitHub Pages, чтобы можно было посмотреть результаты в браузере
       - name: Deploy HTML report to GitHub Pages
