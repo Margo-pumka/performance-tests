@@ -36,11 +36,11 @@ jobs:
     steps:
       # 1. Клонируем репозиторий, в котором находится YAML-файл
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # 2. Устанавливаем Python (используется в Locust)
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.12'  # Версия Python, соответствующая проекту
 
@@ -96,7 +96,7 @@ jobs:
       # 11. Скачиваем HTML-отчет
       - name: Download HTML-report
         if: always()
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: reports
           path: ./reports
