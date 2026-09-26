@@ -72,7 +72,29 @@ jobs:
       - name: Run load tests and generate HTML report
         run: locust --config=${{ github.event.inputs.SCENARIO }} --html=./reports/${{ github.run_id }}/index.html
 
-      # 9. Деплой HTML-отчёта в GitHub Pages, чтобы можно было посмотреть результаты в браузере
+  publish-report:
+    runs-on: ubuntu-latest  # Используется стандартный GitHub Actions runner
+    timeout-minutes: 30  # Ограничение по времени выполнения — 30 минут
+    needs:
+      - run-tests
+    if: always()
+
+    steps:
+      # 9. Загружаем HTML-отчет
+      - name: Upload HTML-report
+        uses: actions/upload-artifact@v7
+        with:
+          name: report-${{ github.run_id }}
+          path: ./reports/${{ github.run_id }}/index.html
+          archive: false
+
+      # 10. Скачиваем HTML-отчет
+      - name: Download HTML-report
+        uses: actions/download-artifact@v5
+        with:
+          name: report-${{ github.run_id }}
+
+      # 11. Деплой HTML-отчёта в GitHub Pages, чтобы можно было посмотреть результаты в браузере
       - name: Deploy HTML report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
@@ -82,7 +104,7 @@ jobs:
           publish_dir: reports  # Публикуем директорию reports
           publish_branch: gh-pages  # На ветке gh-pages
 
-      # 10. Корректно останавливаем docker-контейнеры и удаляем volume-ы (например, temp-файлы)
+      # 12. Корректно останавливаем docker-контейнеры и удаляем volume-ы (например, temp-файлы)
       - name: Stop test services
         if: always()
         run: docker compose -f docker-compose.ci.yaml down -v
