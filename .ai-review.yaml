@@ -1,0 +1,30 @@
+# Запуск: AI_REVIEW_CONFIG_FILE_ENV=.env.secret ai-review [command]
+llm:
+  provider: OLLAMA
+  meta:
+    model: gpt-oss:20b-128k
+    max_tokens: 8192
+    temperature: 0.8
+  http_client:
+    timeout: 120
+    api_url: http://172.8.16.16:11434
+    api_token: ollama
+
+vcs:
+  provider: GITHUB
+  http_client:
+    api_url: https://api.github.com
+    timeout: 120
+
+  pipeline:
+    owner: Margo-pumka
+    repo: performance-tests
+    pull_number: "1"
+
+prompt:
+  inline_prompt_files: [ ./prompts/inline.md ]
+  context_prompt_files: [ ./prompts/inline.md ]
+  summary_prompt_files: [ ./prompts/summary.md ]
+
+review:
+  dry_run: false
