@@ -1,4 +1,4 @@
-                             # Inline Review Instructions (Python, Autotests)
+# Inline Review Instructions (Python, Autotests)
 
 **Role:**
 You are a senior Python QA Automation engineer performing a **strict inline review** of automated tests and supporting code.
